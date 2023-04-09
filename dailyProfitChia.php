@@ -1,12 +1,11 @@
+
+
 <?php
 
 if (isset($_GET["space"])) {
 
 
     header('Content-type: application/json');
-
-    
-
     $response = array();
     $space = $_GET["space"];
     $json = json_decode(file_get_contents("https://api-mainnet.pool.space/api/pool"));
@@ -14,7 +13,7 @@ if (isset($_GET["space"])) {
     $poolNetSpaceTiB = $json->poolNetSpaceTiB;
 
     $dailyXCH= round(1.75 * $blocksFound / $poolNetSpaceTiB ,5);
-    $dailyProfit = $dailyXCH*$space;
+    $dailyProfit = round($dailyXCH*$space,5);
     $response["usedSpace"] = $space;
     $response["dailyXCH"]=$dailyXCH;
     $response["dailyProfit"] = $dailyProfit;
